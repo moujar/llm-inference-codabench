@@ -1,0 +1,28 @@
+# -----------------------------------------------------------------------------
+# LLM Inference submission config
+# -----------------------------------------------------------------------------
+# This is the ONLY file you need to submit (zip this file and upload it).
+# The ingestion program reads it, downloads `hf_repo_id` from the Hugging Face
+# Hub onto the GPU worker, and runs inference on the hidden prompts.
+# -----------------------------------------------------------------------------
+
+# Display name shown on the leaderboard.
+model_name: "SmolLM2-135M-Instruct"
+
+# Hugging Face repo id of the model to clone (namespace/name).
+hf_repo_id: "HuggingFaceTB/SmolLM2-135M-Instruct"
+
+# Optional. Only needed if `hf_repo_id` is a PRIVATE or gated repo.
+# Leave empty for public models. You may also pass a read-only token.
+# NOTE: submissions are visible to the organizers — use a disposable token.
+hf_token: ""
+
+# Optional system prompt / context prepended to every question.
+system_prompt: "You are a helpful assistant. Answer the question as concisely as possible."
+
+# Generation settings.
+temperature: 0.7          # 0 (or do_sample below false) => greedy decoding
+top_p: 0.9
+do_sample: true           # set false for deterministic greedy decoding
+max_new_tokens: 128       # cap on generated tokens per answer
+max_context_length: 2048  # max prompt tokens fed to the model (truncation)

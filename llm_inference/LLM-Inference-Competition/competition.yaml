@@ -1,0 +1,63 @@
+# Example LLM Inference competition yaml file
+# The participant submits a small config describing a Hugging Face model
+# (repo id, optional token for private repos, and generation settings).
+# The ingestion program downloads the model onto the GPU worker, runs
+# inference on a hidden set of prompts, and the scoring program evaluates
+# the generated answers against the reference answers.
+
+version: 2
+title: Example LLM Inference Competition
+description: Submit a Hugging Face LLM config; we clone the model on a GPU worker, run inference and score the answers.
+image: logo.png
+registration_auto_approve: True
+enable_detailed_results: True
+# GPU-enabled image. It already ships torch; the ingestion program installs
+# transformers / huggingface_hub at runtime if they are missing.
+docker_image: codalab/codalab-legacy:gpu310
+
+terms: pages/terms.md
+pages:
+  - title: Overview
+    file: pages/overview.md
+  - title: Evaluation
+    file: pages/evaluation.md
+
+phases:
+  - index: 0
+    name: Phase 1
+    description: LLM inference phase
+    start: 2026-01-01
+    end: 2027-06-01
+    tasks:
+      - 0
+
+tasks:
+  - index: 0
+    name: LLM-Inference-Task
+    description: Clone a Hugging Face LLM and run inference on the hidden prompts.
+    input_data: input_data           # Prompts given to the submitted model
+    reference_data: reference_data   # Ground-truth answers (hidden from participants)
+    scoring_program: scoring_program/
+    ingestion_program: ingestion_program/
+
+leaderboards:
+  - index: 0
+    title: Results
+    key: main
+    submission_rule: "Force_Latest_Multiple"
+    columns:
+      - index: 0
+        title: Accuracy
+        key: accuracy
+        sorting: desc
+      - index: 1
+        title: Token F1
+        key: f1
+        sorting: desc
+      - index: 2
+        title: Avg latency (s)
+        key: avg_latency
+        sorting: asc
+      - index: 3
+        title: Model
+        key: model_name
