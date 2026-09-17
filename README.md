@@ -1,4 +1,4 @@
-# LLM Inference — Bring Your Own Backend (Codabench template)
+# LLM Inference: Bring Your Own Backend (Codabench template)
 
 An open-source **[Codabench](https://www.codabench.org/) competition template**
 for LLM inference where participants **choose their own inference library**.
